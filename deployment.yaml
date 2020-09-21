@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: craft-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: craft
+  template:
+    metadata:
+      labels:
+        app: craft
+    spec:
+      containers:
+      - name: craft
+        # Replace $GCLOUD_PROJECT with your project ID
+        image: gcr.io/$GCLOUD_PROJECT/craft-demo:latest
+        # This app listens on port 8080 for web traffic by default.
+        ports:
+        - containerPort: 8080
+        env:
+          - name: PORT
+            value: "8080"
